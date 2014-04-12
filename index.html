@@ -1,0 +1,18 @@
+<html>
+  <head>
+    <title>hello</title>
+    <!--AngularJS-->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.15/angular.min.js"></script>
+    <script src="check_controller.js"></script>
+  </head>
+  <body ng-app="check" ng-controller="checkController">
+    <form ng-submit="check()">
+      Username:<input type="text" name="username" ng-model="username"> <button ng-click="check()">Check</button>
+    </form>
+    <div id="result">
+    </div>
+    <div id="dname" ng-style="cssname" ng-show="(valid!=999) && (valid !=0)"></div>
+    <div id="davail" ng-show="(valid!=999) && (valid !=0)" ng-style="cssavail"></div>
+    <div id="davaildate" ng-show="(valid == 2)||(valid == 3)" ng-style="cssavaildate"></div>
+  </body>
+</html>
