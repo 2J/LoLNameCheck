@@ -14,7 +14,7 @@
       <h1 class="bigwords" style="font-weight:normal">LoL Namecheck</h1>
       <h3 class="smallwords" style="font-weight:normal">League of Legends name availability checker</h3>
       <form ng-submit="check()" id="form">
-        Username:<input type="text" name="username" ng-model="username"> <select ng-model="region" ng-options="r.name for r in regions"></select><button type="button" ng-click="check()">Check</button>
+        Username:<input type="text" placeholder=" Summoner name..." name="username" ng-model="username"><select ng-model="region" ng-options="r.name for r in regions"></select><button type="button" ng-click="check()">Check</button>
       </form>
     </div>
     <div id="contents">
