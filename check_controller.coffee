@@ -6,6 +6,16 @@ homeApp.controller 'checkController', ['$scope', '$http', ($scope,$http) ->
   $scope.response = 404
   $scope.freedate
   $scope.revdate
+  $scope.regions = [
+    {name:"NA",api:"na"}
+    {name:"EUNE",api:"eune"}
+    {name:"EUW",api:"euw"}
+    {name:"BR",api:"br"}
+    {name:"LAN",api:"lan"}
+    {name:"LAS",api:"las"}
+    {name:"OCE",api:"oce"}
+  ]
+  $scope.region = $scope.regions[0]
   username = ''
   apiname=''
   $scope.check = ->
@@ -22,7 +32,7 @@ homeApp.controller 'checkController', ['$scope', '$http', ($scope,$http) ->
       $scope.valid=0
       document.querySelector('#result').innerHTML = 'Searching for summoner '.concat(apiname).concat('...')
       APIKEY = 'b0a6deff-7d96-4cbe-b481-dc4381cdbdf2' #PUT API KEY HERE
-      url = 'https://prod.api.pvp.net/api/lol/na/v1.4/summoner/by-name/'.concat(apiname).concat('?api_key=').concat(APIKEY)
+      url = 'https://prod.api.pvp.net/api/lol/'.concat($scope.region.api).concat('/v1.4/summoner/by-name/').concat(apiname).concat('?api_key=').concat(APIKEY)
       `window.setTimeout(function(){},500)`
       $http.get url
         .success (data,status) ->
@@ -60,7 +70,7 @@ homeApp.controller 'checkController', ['$scope', '$http', ($scope,$http) ->
       $scope.cssname = {"background-color":"#437529", "color": "white", "text-align":"center"}
       $scope.cssavaildate = {"background-color":"#437529", "color": "white"}
     else if option==3 #Username is taken
-      daysuntil= Math.round(($scope.freedate.getTime() - $scope.revdate.getTime())/ 86400000)
+      daysuntil= Math.round(($scope.freedate.getTime() - Date.now())/ 86400000)
       $scope.cssname = {"background-color":(if (daysuntil<90) then "#CF7800" else "#A60000"), "color": "white", "text-align":"center"}
       $scope.cssavaildate = {"background-color":(if (daysuntil<90) then "#CF7800" else "#A60000"), "color": "white"}
     if (option==2) or (option==3)
