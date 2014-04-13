@@ -33,21 +33,32 @@ homeApp.controller 'checkController', ['$scope', '$http', ($scope,$http) ->
       document.querySelector('#result').innerHTML = 'Searching for summoner '.concat(apiname).concat('...')
       APIKEY = '' #PUT API KEY HERE
       url = 'https://prod.api.pvp.net/api/lol/'.concat($scope.region.api).concat('/v1.4/summoner/by-name/').concat(apiname).concat('?api_key=').concat(APIKEY)
-      `window.setTimeout(function(){},500)`
       $http.get url
         .success (data,status) ->
+          
           $scope.info = data
           $scope.response = status
           if($scope.response == 403) 
             document.querySelector('#result').innerHTML = "403 error'"
             $scope.valid=0
           else if($scope.response == 200) 
-            $scope.revdate = new Date($scope.info[apiname].revisionDate)
-            monthsuntil = if($scope.info[apiname].summonerLevel < 6) then 6 else ($scope.info[apiname].summonerLevel)
-            $scope.freedate = new Date(new Date($scope.revdate).setMonth($scope.revdate.getMonth()+monthsuntil))
-            $scope.valid = if ($scope.freedate < (new Date(Date.now()))) then 2 else 3
-            
-            output($scope.valid, monthsuntil)
+            id = $scope.info[apiname].id
+            url2 = 'https://prod.api.pvp.net/api/lol/'.concat($scope.region.api).concat('/v1.3/game/by-summoner/').concat(id).concat('/recent?api_key=').concat(APIKEY)
+            console.log url2
+            `window.setTimeout(function(){},500)`
+            $http.get url2
+              .success (data2,status2) ->
+                $scope.revdate = new Date(data2.games[0].createDate)
+                monthsuntil = if($scope.info[apiname].summonerLevel < 6) then 6 else ($scope.info[apiname].summonerLevel)
+                $scope.freedate = new Date(new Date($scope.revdate).setMonth($scope.revdate.getMonth()+monthsuntil))
+                $scope.valid = if ($scope.freedate < (new Date(Date.now()))) then 2 else 3
+                output($scope.valid, monthsuntil)
+              .error ->
+                $scope.revdate = new Date($scope.info[apiname].revisionDate)
+                monthsuntil = if($scope.info[apiname].summonerLevel < 6) then 6 else ($scope.info[apiname].summonerLevel)
+                $scope.freedate = new Date(new Date($scope.revdate).setMonth($scope.revdate.getMonth()+monthsuntil))
+                $scope.valid = if ($scope.freedate < (new Date(Date.now()))) then 2 else 3
+                output($scope.valid, monthsuntil)
           else 
             document.querySelector('#result').innerHTML = $scope.response.concat('error')
             $scope.valid = 0
@@ -73,7 +84,7 @@ homeApp.controller 'checkController', ['$scope', '$http', ($scope,$http) ->
       $scope.cssname = {"background-color":(if (daysuntil<90) then "#CF7800" else "#A60000"), "color": "white", "text-align":"center"}
       $scope.cssavaildate = {"background-color":(if (daysuntil<90) then "#CF7800" else "#A60000"), "color": "white"}
     if (option==2) or (option==3)
-      document.querySelector('#davaildate').innerHTML = "<br>Last Activity: ".concat(($scope.revdate).toUTCString())\
+      document.querySelector('#davaildate').innerHTML = "<br>Last Activity (approx.): ".concat(($scope.revdate).toUTCString())\
       .concat("<br> Level: ").concat($scope.info[apiname].summonerLevel)\
       .concat("<br> It takes ").concat(monthsuntil).concat(" months for name cleanup")\
       .concat("<br> Name clearnup if inactive: ").concat(($scope.freedate).toUTCString())
