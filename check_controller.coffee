@@ -31,7 +31,7 @@ homeApp.controller 'checkController', ['$scope', '$http', ($scope,$http) ->
       #username valid
       $scope.valid=0
       document.querySelector('#result').innerHTML = 'Searching for summoner '.concat(apiname).concat('...')
-      APIKEY = 'b0a6deff-7d96-4cbe-b481-dc4381cdbdf2' #PUT API KEY HERE
+      APIKEY = '' #PUT API KEY HERE
       url = 'https://prod.api.pvp.net/api/lol/'.concat($scope.region.api).concat('/v1.4/summoner/by-name/').concat(apiname).concat('?api_key=').concat(APIKEY)
       `window.setTimeout(function(){},500)`
       $http.get url
