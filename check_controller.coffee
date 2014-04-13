@@ -63,7 +63,6 @@ homeApp.controller 'checkController', ['$scope', '$http', ($scope,$http) ->
   output = (option, monthsuntil=0)-> 
     resetdivs()
     daysuntil=0
-    document.querySelector('#dname').innerHTML = "\"".concat(username).concat("\" is ").concat(if option!=3 then "(probably) available!" else "unavailable.")
     if option==1 #Username is not taken
       $scope.cssname = {"background-color":"#437529", "color": "white", "text-align":"center"}
     else if option==2 #Username is taken but expired
@@ -76,7 +75,8 @@ homeApp.controller 'checkController', ['$scope', '$http', ($scope,$http) ->
     if (option==2) or (option==3)
       document.querySelector('#davaildate').innerHTML = "<br>Last Activity: ".concat(($scope.revdate).toUTCString())\
       .concat("<br> Level: ").concat($scope.info[apiname].summonerLevel)\
-      .concat("<br> Months until free: ").concat(monthsuntil)\
-      .concat("<br> Date available: ").concat(($scope.freedate).toUTCString())
-      .concat(if option==3 then "<br> Days until avaiable: ".concat(daysuntil).concat(" day(s)") else '')
+      .concat("<br> It takes ").concat(monthsuntil).concat(" months for name cleanup")\
+      .concat("<br> Name clearnup if inactive: ").concat(($scope.freedate).toUTCString())
+      .concat(if option==3 then "<br> Days until name avaiable: ".concat(daysuntil).concat(" day(s)") else '')
+    document.querySelector('#dname').innerHTML = "\"".concat(username).concat("\" is ").concat(if option!=3 then "(probably) available!" else (if (daysuntil<90) then "available soon (if inactive)" else "unavailable."))
 ]
