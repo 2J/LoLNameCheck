@@ -3,7 +3,7 @@ LoLNameCheck
 
 # League of Legends username availability checker
 
-Availble at [lolnamecheck.dirt.io](http://lolnamecheck.dirt.io)
+Availble at [lolnamecheck.j2.io](http://lolnamecheck.j2.io)
 
 ### Description
 
