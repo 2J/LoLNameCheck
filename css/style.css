@@ -36,14 +36,6 @@ div#bartop {
   left: 0;
   padding: 8px 0 8px 0;
 }
-div#contents {
-  display:block;
-  margin-top: 50px;
-  margin-right: auto;
-  margin-left: auto;
-  width: 500px;
-  font-size: 1em;
-}
 
 div#main {
   display:block;
@@ -64,7 +56,7 @@ form#form {
 
 .contact {
   position:fixed;
-  width:100%;
+  width:200px;
   text-align:right;
   right:50px;
   bottom:50px;
@@ -185,4 +177,35 @@ button.hlink:hover{
 .projects h1{
   font-family: "CGothic";
   font-size: 2em;
+}
+
+div#results {
+  display:block;
+  margin-top: 50px;
+  margin-right: auto;
+  margin-left: auto;
+  width: 500px;
+  font-size: 1em;
+  color: white; 
+  text-align: center;
+}
+
+div.avail-yes,
+div.avail-soon,
+div.avail-no{
+  padding: 10px;
+}
+
+.avail-yes{
+  background-color: rgb(67, 117, 41);
+}
+.avail-soon{
+  background-color: rgb(207, 120, 0);
+}
+.avail-no{
+  background-color: rgb(166, 0, 0);
+}
+
+#details{
+  text-align:left;
 }

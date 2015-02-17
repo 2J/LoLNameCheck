@@ -15,6 +15,6 @@ read more on how it works [here](http://blog.j2.io/lol-namecheck-league-of-legen
 
 ### Installation
 
-Requires Coffeescript. 
+Uses PHP on the Yii Framework. Configure Yii path at index.php
 
-Insert your developer API key to check_controller.coffee
+Put your League of Legends API key in protected/config/main.php
