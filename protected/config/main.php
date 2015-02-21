@@ -66,10 +66,10 @@ return array(
 		// uncomment the following to use a MySQL database
 		
 		'db'=>array(
-			'connectionString' => 'mysql:host=localhost;dbname=dirtio_lolnamecheck',
+			'connectionString' => 'mysql:host=localhost;dbname=xxxxxxxxxxxx',
 			'emulatePrepare' => true,
-			'username' => 'dirtio_lolname',
-			'password' => 'ju$71nL01n@nn3',
+			'username' => 'xxxxxxxxxx',
+			'password' => 'xxxxxxxxxx',
 			'charset' => 'utf8',
 		),
     
