@@ -1,6 +1,6 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
-<!-- Total name checks to date: <?php echo Log::model()->count(); ?> names -->
+<!-- Total name checks to date: <?php echo GenericFunctions::SearchCountAll(); ?> names -->
 <head>
     <title>LoL Namecheck</title>
     <meta name="Description" content="League of Legends Summoner Name Availability Checker">

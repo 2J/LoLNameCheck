@@ -54,6 +54,8 @@ return array(
       'caseSensitive'=>false,  
 			'rules'=>array(
         '/'=>'main/main',
+        '/upcoming' => 'main/upcoming',
+        '/upcoming/<action:\w+>'=>'main/upcoming/region/<action>',
 				'<controller:\w+>/<id:\d+>'=>'<controller>/main',
 				'<controller:\w+>/<action:\w+>/<id:\d+>'=>'<controller>/<action>',
 				'<controller:\w+>/<action:\w+>'=>'<controller>/<action>',
@@ -66,10 +68,10 @@ return array(
 		// uncomment the following to use a MySQL database
 		
 		'db'=>array(
-			'connectionString' => 'mysql:host=localhost;dbname=dirtio_lolnamecheck',
+			'connectionString' => 'mysql:host=READACTED;dbname=READACTED',
 			'emulatePrepare' => true,
-			'username' => 'dirtio_lolname',
-			'password' => 'ju$71nL01n@nn3',
+			'username' => 'READACTED',
+			'password' => 'READACTED',
 			'charset' => 'utf8',
 		),
     
@@ -98,8 +100,8 @@ return array(
 	// application-level parameters that can be accessed
 	// using Yii::app()->params['paramName']
 	'params'=>array(
-    //API key for League of Legends  
-    'API_KEY'=>'xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx',
+    //API key for League of Legends
+    'API_KEY'=>'READACTED',
 		// this is used in contact page
 		'adminEmail'=>'jj@j2.io',
 	),
