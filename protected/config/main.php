@@ -7,7 +7,7 @@
 // CWebApplication properties can be configured here.
 return array(
 	'basePath'=>dirname(__FILE__).DIRECTORY_SEPARATOR.'..',
-	'name'=>'Budget',
+	'name'=>'LoL Namecheck',
   'defaultController' => 'main',
 	// preloading 'log' component
 	'preload'=>array('log'),
@@ -56,6 +56,7 @@ return array(
         '/'=>'main/main',
         '/upcoming' => 'main/upcoming',
         '/upcoming/<action:\w+>'=>'main/upcoming/region/<action>',
+        '/faq'=>'main/pages/page/faq',
 				'<controller:\w+>/<id:\d+>'=>'<controller>/main',
 				'<controller:\w+>/<action:\w+>/<id:\d+>'=>'<controller>/<action>',
 				'<controller:\w+>/<action:\w+>'=>'<controller>/<action>',
@@ -68,10 +69,10 @@ return array(
 		// uncomment the following to use a MySQL database
 		
 		'db'=>array(
-			'connectionString' => 'mysql:host=READACTED;dbname=READACTED',
+			'connectionString' => 'mysql:host=localhost;dbname=REDACTED',
 			'emulatePrepare' => true,
-			'username' => 'READACTED',
-			'password' => 'READACTED',
+			'username' => 'REDACTED',
+			'password' => 'REDACTED',
 			'charset' => 'utf8',
 		),
     
@@ -101,7 +102,7 @@ return array(
 	// using Yii::app()->params['paramName']
 	'params'=>array(
     //API key for League of Legends
-    'API_KEY'=>'READACTED',
+    'API_KEY'=>'REDACTED',
 		// this is used in contact page
 		'adminEmail'=>'jj@j2.io',
 	),
