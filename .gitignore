@@ -1,3 +1,6 @@
+#LOLNC specific
+/protected/runtime/
+
 #################
 ## Eclipse
 #################

@@ -33,9 +33,11 @@ $(function(){
 <div id="main">
   <h1 class="bigwords" style="font-weight:normal">LoL Namecheck</h1>
   <h3 class="smallwords" style="font-weight:normal">League of Legends name availability checker</h3>
+  <div style="font-size:0;border:0;margin:0;padding:0;">LoL Namecheck is a League of Legends name checker that shows when a username is going to expire. Type in a name to see the availability of the summoner name and the expiry date if the name stays inactive. League of Legends Summoner Name Checker allows you to get the best League names. LoL Namecheck also has a feature to see upcoming usernames that will be free soon on each region for League. Check your dream League summoner name now and see when you will be able to get it.</div>
   <div id="namecheck_form">
-    Username:<input type="text" placeholder=" Summoner name..." name="username" id="username" autofocus>
-    <?php echo CHtml::dropDownList('region_name',$select,array('na'=>'NA','eune'=>'EUNE','euw'=>'EUW','br'=>'BR','lan'=>'LAN','las'=>'LAS','oce'=>'OCE')); ?>
+    <span class="form_box">
+      <input type="text" autocomplete="off" placeholder=" Summoner name..." name="username" id="username" autofocus><?php echo CHtml::dropDownList('region_name',$select,array('na'=>'NA','eune'=>'EUNE','euw'=>'EUW','br'=>'BR','lan'=>'LAN','las'=>'LAS','oce'=>'OCE', 'ru'=>'RU', 'tr'=>'TR')); ?>
+    </span>
     <button type="button" id="check_button">Check</button>
   </div>
 </div>
@@ -56,7 +58,12 @@ $(function(){
 </div>
 
 <div class="upcoming">
-<a href="<?php echo Yii::app()->baseUrl."/upcoming" ?>" class="no_under">BETA: View Upcoming Names!</a>
+<a href="<?php echo Yii::app()->baseUrl."/upcoming" ?>" class="no_under">View Upcoming Names!</a>
+</div>
+
+<div class="tweets">
+<a class="twitter-timeline" data-chrome="noheader nofooter transparent" data-dnt="true" href="https://twitter.com/LoLNamecheck" data-widget-id="570411283124846592">Tweets by @LoLNamecheck</a>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
 </div>
 
 <div id="counter">
@@ -64,13 +71,4 @@ $(function(){
 <div class="label">Total:</div><div id="ntotal"><?php echo GenericFunctions::SearchCountAll(); ?></div>
 </div>
 
-<div class="tweets">
-<a class="twitter-timeline" data-dnt="true" href="https://twitter.com/LoLNameCheck" data-widget-id="570411283124846592">Tweets by @LoLNameCheck</a>
-<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
-</div>
-
-<div class="contact">
-<?php //  <a href="http://blog.j2.io/lol-namecheck-league-of-legends-username-availability-checker/" class="no_under">About</a><br> ?>
-  <p>Hyunmok "Plant" Jeong </p><?php //<a class="no_under" href="http://j2.io">J².io</a><br> ?>
-  <a class="no_under" href="mailto:jj@j2.io">jj@j2.io</a>
-</div>
+<div class="fb-like" style="position:fixed; right:5px; bottom:5px;" data-href="https://www.facebook.com/JHM.JJ" data-layout="button_count" data-action="like" data-show-faces="false" data-share="false"></div>

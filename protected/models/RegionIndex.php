@@ -9,6 +9,7 @@
  * @property string $description
  * @property string $timezone
  * @property string $timezone_code
+ * @property string $regex
  */
 class RegionIndex extends CActiveRecord
 {
@@ -28,11 +29,12 @@ class RegionIndex extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('region_code, timezone, timezone_code', 'required'),
+			array('region_code, timezone, timezone_code, regex', 'required'),
 			array('region_code, description, timezone, timezone_code', 'length', 'max'=>45),
+			array('regex', 'length', 'max'=>500),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, region_code, description, timezone, timezone_code', 'safe', 'on'=>'search'),
+			array('id, region_code, description, timezone, timezone_code, regex', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -58,6 +60,7 @@ class RegionIndex extends CActiveRecord
 			'description' => 'Description',
 			'timezone' => 'Timezone',
 			'timezone_code' => 'Timezone Code',
+			'regex' => 'Regex',
 		);
 	}
 
@@ -84,6 +87,7 @@ class RegionIndex extends CActiveRecord
 		$criteria->compare('description',$this->description,true);
 		$criteria->compare('timezone',$this->timezone,true);
 		$criteria->compare('timezone_code',$this->timezone_code,true);
+		$criteria->compare('regex',$this->regex,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
