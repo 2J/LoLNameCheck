@@ -3,11 +3,10 @@
 $(function(){
   $('.update').click(function(){
     username= $(this).data('name');
-    region_name= 'na';//$('#region_name').val();
     $(this).html('updating...');
     <?php echo CHtml::ajax(array(
       'url'=> array('main/check'),
-      'data'=> "js:'username='+username+'&region_name=na&g=a'",
+      'data'=> "js:'username='+username+'&region_name=".$region."&g=a'",
       'type'=>'get',
       'dataType'=>'json',
       'success'=>"function(data)

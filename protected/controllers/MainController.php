@@ -35,10 +35,11 @@ class MainController extends Controller
       $summoner_url = "https://".$region_name.".api.pvp.net/api/lol/".$region_name."/v1.4/summoner/by-name/". implode(',',$batch) ."?api_key=".Yii::app()->params['API_KEY'];
       //SUCCESS: string '{"plant":{"id":22859380,"name":"Plant","profileIconId":580,"summonerLevel":30,"revisionDate":1416661100000}}' (length=108)
       $summoners = CJSON::decode(Yii::app()->curl->get($summoner_url));
-      
-      foreach($summoners as $summ_name => $data){
-        $username[$summ_name]['exist'] = 1;
-      }
+      if($summoners != NULL){
+        foreach($summoners as $summ_name => $data){
+          $username[$summ_name]['exist'] = 1;
+        }
+      }else $summoners = [];
     }
     
     $avail_username = [];
@@ -52,6 +53,11 @@ class MainController extends Controller
         $log->free_date = '2000-01-01 00:00:00';
         $log->ipaddr = "localhost";
         if($log->validate()) $log->save();
+        
+        $featured = new Featured;
+        $featured->server = $region_name;
+        $featured->name = strtolower(preg_replace('/\s+/', '', strtolower($name)));
+        if($featured->validate() && !$featured->exist()) $featured->save();
       };
       
     }
@@ -108,7 +114,8 @@ class MainController extends Controller
       $avail_date['y'] += floor(($avail_date['m'] - 1) / 12);
       $avail_date['m'] = (($avail_date['m'] - 1) % 12) + 1;
       $avail_date['d'] = min(cal_days_in_month(CAL_GREGORIAN, $avail_date['m'], $avail_date['y']), $avail_date['d']);
-      $avail_date = date('Y-m-d',strtotime($avail_date['y'].'-'.$avail_date['m'].'-'.$avail_date['d'])); //.' + 1 DAY'
+      if($username_api=="micky") $avail_date = date('Y-m-d',strtotime($avail_date['y'].'-'.$avail_date['m'].'-'.$avail_date['d'] .' + 1 DAY'));
+      else $avail_date = date('Y-m-d',strtotime($avail_date['y'].'-'.$avail_date['m'].'-'.$avail_date['d'])); //.' + 1 DAY'
       if($avail_date<=date('Y-m-d')) $available=true;
       else $available = false;
       $days_until_avail = floor((strtotime($avail_date)-strtotime(date('Y-m-d')))/86400);
@@ -129,6 +136,16 @@ class MainController extends Controller
       
       //get last played date
     }else{ //username available
+    
+      $prev_log = Log::model()->find('server=:server AND name=:username ORDER BY id DESC', array(':server'=>$region_name, ':username'=>strtolower(preg_replace('/\s+/', '', $username))));
+      if($prev_log !== NULL && $prev_log->free_date != '2000-01-01 00:00:00'){
+        $featured = new Featured;
+        $featured->server = $region_name;
+        $featured->name = strtolower(preg_replace('/\s+/', '', strtolower($username)));
+        if($featured->validate() && !$featured->exist()) $featured->save();
+      }
+      
+      
       //log data
       $log = new Log;
       $log->server = $region_name;
@@ -189,17 +206,22 @@ class MainController extends Controller
         'regions'=>RegionIndex::model()->findAll(),
       ));
     } else {
-      $upcoming_names = Yii::app()->db->createCommand(
-        'SELECT *,unix_timestamp(now()) - unix_timestamp(timestamp) secondsago FROM
-          (SELECT * FROM 
-            (SELECT name,free_date,timestamp FROM log log2
-            WHERE `server`=\''.$region_model->region_code.'\'
-            ORDER BY `timestamp` DESC) log1
-          GROUP BY `name` 
-          ORDER BY `free_date` DESC) log3 
-        WHERE `free_date` <= \''.date('Y-m-d',strtotime(date('Y-m-d').'+ 2 week')).'\'
-        AND `free_date` >= \''.date('Y-m-d',strtotime(date('Y-m-d').'- 1 week')).'\''
-      )->queryAll();
+      $upcoming_names = Yii::app()->cache->get('UPCOMING'.$region_model->region_code);
+      if($upcoming_names == false){
+        $upcoming_names_temp = Yii::app()->db->createCommand(
+          'SELECT *,unix_timestamp(now()) - unix_timestamp(timestamp) secondsago FROM
+            (SELECT * FROM 
+              (SELECT name,free_date,timestamp FROM log log2
+              WHERE `server`=\''.$region_model->region_code.'\'
+              ORDER BY `timestamp` DESC) log1
+            GROUP BY `name` 
+            ORDER BY `free_date` DESC) log3 
+          WHERE `free_date` <= \''.date('Y-m-d',strtotime(date('Y-m-d').'+ 2 week')).'\'
+          AND `free_date` >= \''.date('Y-m-d',strtotime(date('Y-m-d').'- 1 week')).'\''
+        )->queryAll();
+        Yii::app()->cache->set('UPCOMING'.$region_model->region_code, $upcoming_names_temp, 1200);
+        $upcoming_names = Yii::app()->cache->get('UPCOMING'.$region_model->region_code);
+      }
       $this->render('upcoming',array(
         'region'=>$region_model->region_code,
         'upcoming_names'=>$upcoming_names,
