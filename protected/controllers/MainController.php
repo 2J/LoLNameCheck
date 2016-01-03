@@ -114,8 +114,9 @@ class MainController extends Controller
       $avail_date['y'] += floor(($avail_date['m'] - 1) / 12);
       $avail_date['m'] = (($avail_date['m'] - 1) % 12) + 1;
       $avail_date['d'] = min(cal_days_in_month(CAL_GREGORIAN, $avail_date['m'], $avail_date['y']), $avail_date['d']);
-      if($username_api=="micky") $avail_date = date('Y-m-d',strtotime($avail_date['y'].'-'.$avail_date['m'].'-'.$avail_date['d'] .' + 1 DAY'));
-      else $avail_date = date('Y-m-d',strtotime($avail_date['y'].'-'.$avail_date['m'].'-'.$avail_date['d'])); //.' + 1 DAY'
+      //if($username_api=="") $avail_date = date('Y-m-d',strtotime($avail_date['y'].'-'.$avail_date['m'].'-'.$avail_date['d'] .' + 1 DAY'));
+      //else 
+        $avail_date = date('Y-m-d',strtotime($avail_date['y'].'-'.$avail_date['m'].'-'.$avail_date['d'])); //.' + 1 DAY'
       if($avail_date<=date('Y-m-d')) $available=true;
       else $available = false;
       $days_until_avail = floor((strtotime($avail_date)-strtotime(date('Y-m-d')))/86400);
@@ -217,7 +218,7 @@ class MainController extends Controller
             GROUP BY `name` 
             ORDER BY `free_date` DESC) log3 
           WHERE `free_date` <= \''.date('Y-m-d',strtotime(date('Y-m-d').'+ 2 week')).'\'
-          AND `free_date` >= \''.date('Y-m-d',strtotime(date('Y-m-d').'- 1 week')).'\''
+          AND `free_date` >= \''.date('Y-m-d',strtotime(date('Y-m-d').'- 3 day')).'\''
         )->queryAll();
         Yii::app()->cache->set('UPCOMING'.$region_model->region_code, $upcoming_names_temp, 1200);
         $upcoming_names = Yii::app()->cache->get('UPCOMING'.$region_model->region_code);

@@ -23,7 +23,7 @@ $(function(){
 
 <h1>
   <a href="<?php echo Yii::app()->baseUrl ?>">LoL Namecheck</a> - <?php echo strtoupper($region) ?> upcoming names <br>
-  (<?php echo date('Y-m-d',strtotime(date('Y-m-d').'- 1 week')) . ' ~ ' . date('Y-m-d',strtotime(date('Y-m-d').'+ 2 week')) ?>)
+  (<?php echo date('Y-m-d',strtotime(date('Y-m-d').'- 3 day')) . ' ~ ' . date('Y-m-d',strtotime(date('Y-m-d').'+ 2 week')) ?>)
 </h1>
 
 <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>

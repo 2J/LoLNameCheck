@@ -16,30 +16,20 @@
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
     <?php Yii::app()->clientScript->registerCoreScript('jquery'); ?>
-    <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/style.css?1436763247" />
+    <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/style.css?1436763554" />
 </head>
 
 <body>
   <div id="global_wrap">
     <div id="fb-root"></div>
-    <script>/*(function(d, s, id) {
+    <script>(function(d, s, id) {
       var js, fjs = d.getElementsByTagName(s)[0];
       if (d.getElementById(id)) return;
       js = d.createElement(s); js.id = id;
       js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.4&appId=1038758249472123";
       fjs.parentNode.insertBefore(js, fjs);
     }(document, 'script', 'facebook-jssdk'));
-    
-    window.onload = function(){ 
-      setTimeout(function() { 
-        var ad = document.querySelector("ins.adsbygoogle");
-        if (ad && ad.innerHTML.replace(/\s/g, "").length == 0) {
-          ad.style.cssText = 'display:block !important'; 
-          ad.innerHTML = 'Please disable adblock if you like LoL Namecheck!';
-        }
-      }, 2000); // The ad blocker check is performed 2 seconds after the page load 
-    }; */
-    </script>
+    window.onload=function(){setTimeout(function(){var e=document.querySelector("ins.adsbygoogle");e&&0==e.innerHTML.replace(/\s/g,"").length&&(e.style.cssText="display:block !important",e.innerHTML="Please disable adblock to support LoL Namecheck!")},2e3)};</script>
     
     <div id="navbar_wrap">
       <div id="navbar">
