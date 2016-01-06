@@ -207,22 +207,26 @@ class MainController extends Controller
         'regions'=>RegionIndex::model()->findAll(),
       ));
     } else {
-      $upcoming_names = Yii::app()->cache->get('UPCOMING'.$region_model->region_code);
-      if($upcoming_names == false){
-        $upcoming_names_temp = Yii::app()->db->createCommand(
-          'SELECT *,unix_timestamp(now()) - unix_timestamp(timestamp) secondsago FROM
-            (SELECT * FROM 
-              (SELECT name,free_date,timestamp FROM log log2
-              WHERE `server`=\''.$region_model->region_code.'\'
-              ORDER BY `timestamp` DESC) log1
-            GROUP BY `name` 
-            ORDER BY `free_date` DESC) log3 
-          WHERE `free_date` <= \''.date('Y-m-d',strtotime(date('Y-m-d').'+ 2 week')).'\'
-          AND `free_date` >= \''.date('Y-m-d',strtotime(date('Y-m-d').'- 3 day')).'\''
-        )->queryAll();
-        Yii::app()->cache->set('UPCOMING'.$region_model->region_code, $upcoming_names_temp, 1200);
-        $upcoming_names = Yii::app()->cache->get('UPCOMING'.$region_model->region_code);
+      //include AngularJS
+      Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl.'/js/myApp.js',CClientScript::POS_END);
+      //Yii::app()->clientScript->registerScriptFile('https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js',CClientScript::POS_END);
+      
+      
+      $path = "D:\wampserver\www\LoLnc_github\protected\upcoming\\".$region_model->region_code; 
+      $latest_ctime = 0;
+      $latest_file = '';    
+
+      $d = dir($path);
+      while (false !== ($entry = $d->read())) {
+        $filepath = "{$path}/{$entry}";
+        // could do also other checks than just checking whether the entry is a file
+        if (is_file($filepath) && filectime($filepath) > $latest_ctime) {
+          $latest_ctime = filectime($filepath);
+          $latest_file = $filepath;
+        }
       }
+      
+      $upcoming_names = file_get_contents($latest_file);
       $this->render('upcoming',array(
         'region'=>$region_model->region_code,
         'upcoming_names'=>$upcoming_names,
